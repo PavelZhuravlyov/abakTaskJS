@@ -5,10 +5,11 @@ $(document).ready(function(){
 		var slideWidth = $('.slider-img').outerWidth(),
 			$slider    = $('.slider'),
 			dataSlide      = $(this).data('slide'),
-			activeSlide    = $('.slider').find('.slider-active'),
-			activeSlidePos = activeSlide.index();	
+			slideActive    = $('.slider').find('.slider-active'),
+			slideActivePos = slideActive.index(),
+			countSlides    = $slider.find('.slider-img').length-1;	
 
-		initSlider($('.slider'));
+		initSlider($('.slider'), countSlides, slideActive, slideActivePos, slideWidth);
 
 		var interval = setInterval(function(){
 			$('.slider-arrow[data-slide="1"]').trigger('click');
@@ -34,6 +35,10 @@ $(document).ready(function(){
 			return false;
 		});
 
+		function initSlider($slider, countSlides, slideActive, slideActivePos, slideWidth){
+			addSlideBefore_AfterActive($slider, slideActivePos, countSlides, slideWidth, true);
+		}
+
 		function addItemBefore_AfterActive($slider, activeSlidePos, countSlides, dataSlide){
 			var nextSlide = activeSlidePos + 1,
 				prevSlide = activeSlidePos - 1,
@@ -55,8 +60,6 @@ $(document).ready(function(){
 					'left' : sliderML - slideWidth 
 				})
 			}
-
-			console.log(prevSlide, countSlides-1);
 		}
 
 		// Функция должна сдвигать слайдер, dataSlide=1 для setInterval
@@ -69,24 +72,11 @@ $(document).ready(function(){
 			$('.slider-img').siblings().removeClass('slider-active');
 			$('.slider-img').eq(activeSlidePosD).addClass('slider-active');
 
-			console.log(activeSlidePos);
-
 			moveToActiveSlide($slider, slideWidth, activeSlidePosD);
 
 			setTimeout(function(){
 				callback();
 			}, 500);
-		}
-
-		function initSlider($slider){
-			var countSlides    = $slider.find('.slider-img').length-1,
-				slideActive    = $slider.find('.slider-active'),
-				slideActivePos = slideActive.index(),
-				slideWidth     = $('.slider-img').outerWidth();
-
-			addSlideBefore_AfterActive($slider, slideActivePos, countSlides, slideWidth, true);
-
-			return [countSlides, slideActive, slideActivePos, slideWidth];
 		}
 
 		// Переход к слайду с классом active
@@ -104,31 +94,31 @@ $(document).ready(function(){
 				lastSlide.insertBefore(startSlide);
 				if(initSlider === true) {
 					moveToActiveSlide($slider, slideWidth);
-					addTransition($slider);
+					// addTransition($slider);
 				}
 			}
 			else if(slideActivePos == countSlides){
 				startSlide.insertAfter(lastSlide);
 				if(initSlider === true) {
 					moveToActiveSlide($slider, slideWidth, countSlides-1);
-					addTransition($slider);
+					// addTransition($slider);
 				}
 			}
 			else{
 				initMoveToActive($slider, slideWidth, slideActivePos);
-				addTransition($slider);
+				// addTransition($slider);
 			}
 				
 		}
 
 		// Задержка добавления анимации к слайдеру во время инициализации
-		function addTransition($slider){
-			setTimeout(function(){
-				// $slider.css({
-				// 	'transition' : 'all .5s'
-				// });
-			}, 100);
-		}
+		// function addTransition($slider){
+		// 	setTimeout(function(){
+		// 		// $slider.css({
+		// 		// 	'transition' : 'all .5s'
+		// 		// });
+		// 	}, 100);
+		// }
 
 		// сдвиг слайдера
 		function moveToActiveSlide($slider, slideWidth, slidePos=1){
