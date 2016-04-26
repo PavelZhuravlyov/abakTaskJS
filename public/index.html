@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Slider</title>
+	<link rel="stylesheet" href="css/normalize.css"/>
+	<link rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+	<div class="wrapper">
+		<form action="#" class="wr-form_datas">
+			<input type="text" placeholder="Данные..." name="datas" class="wr-form_datas-inp"/>
+			<button class="wr-form_datas-btn">Сохранить</button>
+		</form>
+
+		<div class="wr-download" style="display: none"></div>
+
+		<div class="wr-blocks-w">
+			<div class="wr-block">
+				<img src="" alt="" class="wr-block-img"/>	
+				<form class="wr-block-comment">
+					<label class="wr-block-comment-lb">
+						<span class="wr-block-comment-lb-text">Комментарий:</span>
+						<input type="text" name="comment" class="wr-block-comment-lb-inp"/>
+					</label>
+				</form>
+				<a href="#" class="wr-block-delete">Удалить</a>
+			</div>
+		</div>
+
+		<div class="slider-w">
+			<ul class="slider">
+				<li class="slider-img slider-active">
+					<div class="one"></div>
+				</li>
+				<li class="slider-img">
+					<div class="two"></div>
+				</li>
+				<li class="slider-img">
+					<div class="three"></div>
+				</li>
+				<li class="slider-img">
+					<div class="four"></div>
+				</li>
+			</ul>
+			<a href="#" data-slide="1" class="slider-arrow"></a>
+			<a href="#" data-slide="-1" class="slider-arrow"></a>
+		</div>
+	</div>
+	<script src="js/jquery.js"></script>
+	<script src="js/main.js"></script>
+</body>
+</html>
