@@ -1,52 +1,55 @@
 $(document).ready(function(){
 
-	// Slider
+	//Slider
 	// (function(){
-	// 	var slideWidth = $('.slider-img').outerWidth(),
-	// 		$slider    = $('.slider'),
-	// 		dataSlide      = $(this).data('slide'),
-	// 		slideActive    = $('.slider').find('.slider-active'),
-	// 		slideActivePos = slideActive.index(),
-	// 		countSlides    = $slider.find('.slider-img').length-1;	
+		
+	// 	this.initSlider = function($slider, countSlides, slideActivePos, slideWidth){
+	// 		var 
+	// 			//$slider    	   = $('.slider'),
+	// 			sliderItem     = $('.slider-img'),
+	// 			//slideWidth     = $('.slider-img').outerWidth(),
+	// 			//slideActive    = $('.slider').find('.slider-active'),
+	// 			// slideActivePos = slideActive.index(),
+	// 			//countSlides    = $slider.find('.slider-img').length-1,
+	// 			navLink        = '.slider-arrow';
 
-	// 	initSlider($('.slider'), countSlides, slideActive, slideActivePos, slideWidth);
+	// 		addSlideBefore_AfterActive($slider, slideActivePos, countSlides, slideWidth, true);
 
-	// 	var interval = setInterval(function(){
-	// 		$('.slider-arrow[data-slide="1"]').trigger('click');
-	// 	}, 3000);
-
-	// 	$(document).on('click', '.slider-arrow', function(){
-	// 		clearInterval(interval);
-	// 		var dataSlide      = $(this).data('slide'),
-	// 			activeSlide    = $('.slider').find('.slider-active'),
-	// 			activeSlidePos = activeSlide.index();
-
-	// 		$('body').addClass('body-bg');
-
-	// 		moveActiveClass($('.slider'), activeSlidePos, dataSlide, slideWidth, function(){
-	// 			addItemBefore_AfterActive($('.slider'), activeSlidePos, 3, dataSlide);
-	// 			$('body').removeClass('body-bg');
-	// 		});
-
-	// 		interval = setInterval(function(){
+	// 		var interval = setInterval(function(){
 	// 			$('.slider-arrow[data-slide="1"]').trigger('click');
 	// 		}, 3000);
 
-	// 		return false;
-	// 	});
+	// 		$(document).on('click', navLink, function(){
+	// 			clearInterval(interval);
+	// 			var dataSlide      = $(this).data('slide'),
+	// 				activeSlide    = $('.slider').find('.slider-active'),
+	// 				activeSlidePos = activeSlide.index();
 
-	// 	function initSlider($slider, countSlides, slideActive, slideActivePos, slideWidth){
-	// 		addSlideBefore_AfterActive($slider, slideActivePos, countSlides, slideWidth, true);
+	// 			$('body').addClass('body-bg');
+
+	// 			moveActiveClass($slider, activeSlidePos, dataSlide, slideWidth, function(){
+	// 				addItemBefore_AfterActive($slider, activeSlidePos, countSlides, dataSlide, slideWidth);
+	// 				$('body').removeClass('body-bg');
+	// 			});
+
+	// 			interval = setInterval(function(){
+	// 				$('.slider-arrow[data-slide="1"]').trigger('click');
+	// 			}, 3000);
+
+	// 			return false;
+	// 		});
 	// 	}
 
-	// 	function addItemBefore_AfterActive($slider, activeSlidePos, countSlides, dataSlide){
-	// 		var nextSlide = activeSlidePos + 1,
-	// 			prevSlide = activeSlidePos - 1,
-	// 		    lastSlide    = $('.slider-img').eq(countSlides),
-	// 			startSlide   = $('.slider-img').eq(0),
-	// 			currentSlide = $('.slider-img').eq(activeSlidePos);
+	// 	// Проверяет, если след слайд последний или первый, то добавить перед ним/после него последний/первый слайд
+	// 	function addItemBefore_AfterActive($slider, activeSlidePos, countSlides, dataSlide, slideWidth){
+	// 		var sliderItem   = $('.slider-img'),
+	// 			nextSlide 	 = activeSlidePos + 1,
+	// 			prevSlide 	 = activeSlidePos - 1,
+	// 		    lastSlide    = sliderItem.eq(countSlides),
+	// 			startSlide   = sliderItem.eq(0),
+	// 			currentSlide = sliderItem.eq(activeSlidePos);
 
-	// 		if((nextSlide == countSlides-1) && dataSlide > 0) {
+	// 		if((nextSlide == countSlides) && dataSlide > 0) {
 	// 			var sliderML = parseInt($slider.css('left'));
 	// 			startSlide.insertAfter(lastSlide);
 	// 			$slider.css({
@@ -62,9 +65,9 @@ $(document).ready(function(){
 	// 		}
 	// 	}
 
-	// 	// Функция должна сдвигать слайдер, dataSlide=1 для setInterval
+	// 	//Функция должна сдвигать слайдер, dataSlide=1 для setInterval
 	// 	function moveActiveClass($slider, activeSlidePos, dataSlide, slideWidth, callback){
-	// 		var dataSlide = dataSlide || 1,
+	// 		var dataSlide       = dataSlide || 1,
 	// 			activeSlidePosD = activeSlidePos;
 
 	// 		(dataSlide > 0) ? activeSlidePosD += 1 : activeSlidePosD -= 1
@@ -75,62 +78,58 @@ $(document).ready(function(){
 	// 		moveToActiveSlide($slider, slideWidth, activeSlidePosD);
 
 	// 		setTimeout(function(){
-	// 			callback();
+	// 			if(callback && typeof callback == "function") callback();
 	// 		}, 500);
-	// 	}
-
-	// 	// Переход к слайду с классом active
-	// 	function initMoveToActive($slider, slideWidth, slideActivePos){
-	// 		moveToActiveSlide($slider, slideWidth, slideActivePos);
 	// 	}
 
 	// 	// Добавить слайл перед или после активного при инициализации
 	// 	function addSlideBefore_AfterActive($slider, slideActivePos, countSlides, slideWidth, initSlider){
-	// 		var lastSlide    = $('.slider-img').eq(countSlides),
-	// 			startSlide   = $('.slider-img').eq(0),
-	// 			currentSlide = $('.slider-img').eq(slideActivePos),
+	// 		var sliderItem   = $('.slider-img'),
+	// 			lastSlide    = sliderItem.eq(countSlides),
+	// 			startSlide   = sliderItem.eq(0),
+	// 			currentSlide = sliderItem.eq(slideActivePos).index(),
 	// 			initSlider   = initSlider || false;
+
 
 	// 		if(slideActivePos == 0){
 	// 			lastSlide.insertBefore(startSlide);
-	// 			if(initSlider === true) {
+	// 			if(initSlider) {
 	// 				moveToActiveSlide($slider, slideWidth);
-	// 				// addTransition($slider);
 	// 			}
 	// 		}
 	// 		else if(slideActivePos == countSlides){
+	// 			console.log(countSlides);
 	// 			startSlide.insertAfter(lastSlide);
-	// 			if(initSlider === true) {
+	// 			if(initSlider) {
 	// 				moveToActiveSlide($slider, slideWidth, countSlides-1);
-	// 				// addTransition($slider);
 	// 			}
 	// 		}
 	// 		else{
-	// 			initMoveToActive($slider, slideWidth, slideActivePos);
-	// 			// addTransition($slider);
+	// 			moveToActiveSlide($slider, slideWidth, currentSlide);
 	// 		}
 				
 	// 	}
 
-	// 	// Задержка добавления анимации к слайдеру во время инициализации
-	// 	// function addTransition($slider){
-	// 	// 	setTimeout(function(){
-	// 	// 		// $slider.css({
-	// 	// 		// 	'transition' : 'all .5s'
-	// 	// 		// });
-	// 	// 	}, 100);
-	// 	// }
-
 	// 	// сдвиг слайдера
-	// 	function moveToActiveSlide($slider, slideWidth, slidePos){
-	// 		var slidePos = slidePos || 1;
-	// 		$slider.animate({
-	// 			'left' : -slideWidth*(slidePos)
-	// 		});
+	// 	function moveToActiveSlide($slider, slideWidth, slidePos, callback){
+	// 		var slidePos =  (slidePos >= 0) ? slidePos : 1;
+	// 		$slider.transition({'left' : -slideWidth*(slidePos)})
+	// 		if(callback) callback();
 	// 	}
 
 	// })();
 
+	// Slider Start
+	// (function(){
+	// 	var slideWidth     = $('.slider-img').outerWidth(),
+	// 		slideActive    = $('.slider').find('.slider-active'),
+	// 		slideActivePos = slideActive.index(),
+	// 		countSlides    = $('.slider').find('.slider-img').length-1;
+
+	// 		initSlider($('.slider'), countSlides, slideActivePos, slideWidth);
+	// })();
+
+	
 	(function(){
 		var fotos = {},
 			arrEmptyBlocksIndex = [],
@@ -142,18 +141,21 @@ $(document).ready(function(){
 			    str = $('.wr-form_datas-inp[name="datas"]').val(),
 			    arrUrls;
 
-			// if(str.replace(/\s/g, '') === '') return false;
+			if(str.replace(/\s/g, '') === '') return false;
 
 			arrUrls = generateArrUrls(str)
 			fotos = generateJSONArray(arrUrls);
 
 			// Рендер шаблона
 			var template = Handlebars.compile($('#template').html());
-			$('.wr-blocks-w').append(template(fotos));
+			
+			fadeBlock($('.wr-form_datas'), 3, function(){
+				// Вывод шаблона
+				$('.wr-blocks-w').append(template(fotos));
 
-			$('#template').insertBefore('.wr-blocks-w'); // Чтоб индексы шли с нуля
-
-			fadeBlock($('.wr-form_datas'), 1);
+				$('#template').insertBefore('.wr-blocks-w'); // Чтоб индексы шли с нуля
+			});
+		
 
 			return false;
 		});
@@ -194,7 +196,7 @@ $(document).ready(function(){
 			function testCallback(indexAr, callback){
 				var a = indexAr+1000;
 				console.log(a);
-				callback(indexAr);
+				if(callback && typeof callback == "function") callback();(indexAr);
 			}
 		*/
 
@@ -202,7 +204,8 @@ $(document).ready(function(){
 			for(var i=0; i<arrObjects.length; i++){
 				arrObjects[i].comment = arrNewFields[i];
 			}
-			callback();
+
+			if(callback && typeof callback == "function") callback();
 		}
 
 		// Поиск комментариев к каждой фотографии
@@ -268,31 +271,38 @@ $(document).ready(function(){
 			return obj;
 		}
 
-		function fadeBlock($block, animation){ // animation может быть 1=up, 2=left, 3=right
+		function fadeBlock($block, animation, callback){ // animation может быть 1=up, 2=left, 3=right
 			var animation = animation || 1;
+			$block.css({
+				'top': 0,
+				'left': 0,
+				'right': 0,
+				'bottom': 0
+			});
 
 			switch(animation){
 				case 1:
-					var marginTop = parseInt($block.css('marginTop'));
-					$block.fadeOut(1500).css('marginTop', -marginTop);
+					var offsetTop = $block.offset().top + $block.height();
+					$block.css('top', -offsetTop*2).delay(200).fadeOut(400, function(){
+						if(callback && typeof callback == "function") callback();
+					});
 					break;
 
 				case 2:
-					var marginLeft = parseInt($block.css('marginLeft'));
-					$block.css({
-						'marginBottom': 0,
-						'marginTop': 0
-					}).fadeOut(400).css('marginLeft', -marginLeft); 
+					var offsetLeft = $block.offset().left + $block.width();
+					$block.css('left', -offsetLeft*2).delay(200).fadeOut(400, function(){
+						if(callback && typeof callback == "function") callback();
+					}); 
 					break;
 
 				case 3:
-					var marginRight = parseInt($block.css('marginRight'));
-					$block.css({
-						'marginBottom': 0,
-						'marginTop': 0
-					}).fadeOut(400).css('marginRight', -marginRight); 
+					var offsetRight = $block.offset().left + $block.width();
+					$block.css('left', offsetRight*2).delay(200).fadeOut(400, function(){
+						if(callback && typeof callback == "function") callback();
+					}); 
 					break;
-			}	
+			}
+			
 		}
 
 	})();
