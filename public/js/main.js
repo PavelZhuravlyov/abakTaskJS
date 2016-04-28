@@ -15,6 +15,8 @@ $(document).ready(function(){
 			}, 7000);
 
 			$(document).on('click', navLink, function(){
+				if(sliderItem.length <= 1) return false;
+
 				clearInterval(interval);
 				var dataSlide      = $(this).data('slide'),
 					activeSlide    = $('.slider').find('.slider-active'),
