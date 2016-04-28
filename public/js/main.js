@@ -1,125 +1,143 @@
 $(document).ready(function(){
 
 	//Slider
-	// (function(){
+	(function(){
 		
-	// 	this.initSlider = function($slider, countSlides, slideActivePos, slideWidth){
-	// 		var 
-	// 			//$slider    	   = $('.slider'),
-	// 			sliderItem     = $('.slider-img'),
-	// 			//slideWidth     = $('.slider-img').outerWidth(),
-	// 			//slideActive    = $('.slider').find('.slider-active'),
-	// 			// slideActivePos = slideActive.index(),
-	// 			//countSlides    = $slider.find('.slider-img').length-1,
-	// 			navLink        = '.slider-arrow';
+		this.initSlider = function($slider, countSlides, slideActivePos, slideWidth){
+			var	sliderItem     = $('.slider-img'),
+				navLink        = '.slider-arrow';
 
-	// 		addSlideBefore_AfterActive($slider, slideActivePos, countSlides, slideWidth, true);
+			addSlideBefore_AfterActive($slider, slideActivePos, countSlides, slideWidth, true);
+			checkCommentField($slider, '.slider-img-comment');
 
-	// 		var interval = setInterval(function(){
-	// 			$('.slider-arrow[data-slide="1"]').trigger('click');
-	// 		}, 3000);
+			var interval = setInterval(function(){
+				$('.slider-arrow[data-slide="1"]').trigger('click');
+			}, 7000);
 
-	// 		$(document).on('click', navLink, function(){
-	// 			clearInterval(interval);
-	// 			var dataSlide      = $(this).data('slide'),
-	// 				activeSlide    = $('.slider').find('.slider-active'),
-	// 				activeSlidePos = activeSlide.index();
+			$(document).on('click', navLink, function(){
+				clearInterval(interval);
+				var dataSlide      = $(this).data('slide'),
+					activeSlide    = $('.slider').find('.slider-active'),
+					activeSlidePos = activeSlide.index();
 
-	// 			$('body').addClass('body-bg');
+				$('body').addClass('body-bg');
+				console.log(slideActivePos);
 
-	// 			moveActiveClass($slider, activeSlidePos, dataSlide, slideWidth, function(){
-	// 				addItemBefore_AfterActive($slider, activeSlidePos, countSlides, dataSlide, slideWidth);
-	// 				$('body').removeClass('body-bg');
-	// 			});
+				moveActiveClass($slider, activeSlidePos, dataSlide, slideWidth, function(){
+					addItemBefore_AfterActive($slider, activeSlidePos, countSlides, dataSlide, slideWidth);
+					$('body').removeClass('body-bg');
+				});
 
-	// 			interval = setInterval(function(){
-	// 				$('.slider-arrow[data-slide="1"]').trigger('click');
-	// 			}, 3000);
+				interval = setInterval(function(){
+					$('.slider-arrow[data-slide="1"]').trigger('click');
+				}, 7000);
 
-	// 			return false;
-	// 		});
-	// 	}
+				return false;
+			});
 
-	// 	// Проверяет, если след слайд последний или первый, то добавить перед ним/после него последний/первый слайд
-	// 	function addItemBefore_AfterActive($slider, activeSlidePos, countSlides, dataSlide, slideWidth){
-	// 		var sliderItem   = $('.slider-img'),
-	// 			nextSlide 	 = activeSlidePos + 1,
-	// 			prevSlide 	 = activeSlidePos - 1,
-	// 		    lastSlide    = sliderItem.eq(countSlides),
-	// 			startSlide   = sliderItem.eq(0),
-	// 			currentSlide = sliderItem.eq(activeSlidePos);
+			// $(document).on('click', '.slider-navigation-circle', function(){
+			// 	clearInterval(interval);
+			// 	var item = $(this).data('item');
 
-	// 		if((nextSlide == countSlides) && dataSlide > 0) {
-	// 			var sliderML = parseInt($slider.css('left'));
-	// 			startSlide.insertAfter(lastSlide);
-	// 			$slider.css({
-	// 				'left' : sliderML + slideWidth 
-	// 			})
-	// 		}
-	// 		else if((prevSlide == 0) && dataSlide < 0) {
-	// 			var sliderML = parseInt($slider.css('left'));
-	// 			lastSlide.insertBefore(startSlide);
-	// 			$slider.css({
-	// 				'left' : sliderML - slideWidth 
-	// 			})
-	// 		}
-	// 	}
+			// 	console.log(slideActivePos);
 
-	// 	//Функция должна сдвигать слайдер, dataSlide=1 для setInterval
-	// 	function moveActiveClass($slider, activeSlidePos, dataSlide, slideWidth, callback){
-	// 		var dataSlide       = dataSlide || 1,
-	// 			activeSlidePosD = activeSlidePos;
+			// 	moveActiveClass($slider, item-1, 1, slideWidth, function(){
+			// 		addItemBefore_AfterActive($slider, item, countSlides, 1, slideWidth);
+			// 		$('body').removeClass('body-bg');
+			// 	});
 
-	// 		(dataSlide > 0) ? activeSlidePosD += 1 : activeSlidePosD -= 1
+			// 	interval = setInterval(function(){
+			// 		$('.slider-arrow[data-slide="1"]').trigger('click');
+			// 	}, 7000);
 
-	// 		$('.slider-img').siblings().removeClass('slider-active');
-	// 		$('.slider-img').eq(activeSlidePosD).addClass('slider-active');
+			// 	return false;
+			// });
+		}
 
-	// 		moveToActiveSlide($slider, slideWidth, activeSlidePosD);
+		//удалить все пустые поля для комментариев
+		function checkCommentField(){
+			$(".slider-img-comment").detach(":empty");
+		}
 
-	// 		setTimeout(function(){
-	// 			if(callback && typeof callback == "function") callback();
-	// 		}, 500);
-	// 	}
+		// Проверяет, если след слайд последний или первый, то добавить перед ним/после него последний/первый слайд
+		function addItemBefore_AfterActive($slider, activeSlidePos, countSlides, dataSlide, slideWidth){
+			var sliderItem   = $('.slider-img'),
+				nextSlide 	 = activeSlidePos + 1,
+				prevSlide 	 = activeSlidePos - 1,
+			    lastSlide    = sliderItem.eq(countSlides),
+				startSlide   = sliderItem.eq(0),
+				currentSlide = sliderItem.eq(activeSlidePos);
 
-	// 	// Добавить слайл перед или после активного при инициализации
-	// 	function addSlideBefore_AfterActive($slider, slideActivePos, countSlides, slideWidth, initSlider){
-	// 		var sliderItem   = $('.slider-img'),
-	// 			lastSlide    = sliderItem.eq(countSlides),
-	// 			startSlide   = sliderItem.eq(0),
-	// 			currentSlide = sliderItem.eq(slideActivePos).index(),
-	// 			initSlider   = initSlider || false;
+			if((nextSlide == countSlides) && dataSlide > 0) {
+				var sliderML = parseInt($slider.css('left'));
+				startSlide.insertAfter(lastSlide);
+				$slider.css({
+					'left' : sliderML + slideWidth 
+				})
+			}
+			else if((prevSlide == 0) && dataSlide < 0) {
+				var sliderML = parseInt($slider.css('left'));
+				lastSlide.insertBefore(startSlide);
+				$slider.css({
+					'left' : sliderML - slideWidth 
+				})
+			}
+		}
+
+		//Функция должна сдвигать слайдер, dataSlide=1 для setInterval
+		function moveActiveClass($slider, activeSlidePos, dataSlide, slideWidth, callback){
+			var dataSlide       = dataSlide || 1,
+				activeSlidePosD = activeSlidePos;
+
+			(dataSlide > 0) ? activeSlidePosD += 1 : activeSlidePosD -= 1
+
+			$('.slider-img').siblings().removeClass('slider-active');
+			$('.slider-img').eq(activeSlidePosD).addClass('slider-active');
+
+			moveToActiveSlide($slider, slideWidth, activeSlidePosD);
+
+			setTimeout(function(){
+				if(callback && typeof callback == "function") callback();
+			}, 500);
+		}
+
+		// Добавить слайл перед или после активного при инициализации
+		function addSlideBefore_AfterActive($slider, slideActivePos, countSlides, slideWidth, initSlider){
+			var sliderItem   = $('.slider-img'),
+				lastSlide    = sliderItem.eq(countSlides),
+				startSlide   = sliderItem.eq(0),
+				currentSlide = sliderItem.eq(slideActivePos).index(),
+				initSlider   = initSlider || false;
 
 
-	// 		if(slideActivePos == 0){
-	// 			lastSlide.insertBefore(startSlide);
-	// 			if(initSlider) {
-	// 				moveToActiveSlide($slider, slideWidth);
-	// 			}
-	// 		}
-	// 		else if(slideActivePos == countSlides){
-	// 			console.log(countSlides);
-	// 			startSlide.insertAfter(lastSlide);
-	// 			if(initSlider) {
-	// 				moveToActiveSlide($slider, slideWidth, countSlides-1);
-	// 			}
-	// 		}
-	// 		else{
-	// 			moveToActiveSlide($slider, slideWidth, currentSlide);
-	// 		}
+			if(slideActivePos == 0){
+				lastSlide.insertBefore(startSlide);
+				if(initSlider) {
+					moveToActiveSlide($slider, slideWidth);
+				}
+			}
+			else if(slideActivePos == countSlides){
+				console.log(countSlides);
+				startSlide.insertAfter(lastSlide);
+				if(initSlider) {
+					moveToActiveSlide($slider, slideWidth, countSlides-1);
+				}
+			}
+			else{
+				moveToActiveSlide($slider, slideWidth, currentSlide);
+			}
 				
-	// 	}
+		}
 
-	// 	// сдвиг слайдера
-	// 	function moveToActiveSlide($slider, slideWidth, slidePos, callback){
-	// 		var slidePos =  (slidePos >= 0) ? slidePos : 1;
-	// 		$slider.transition({'left' : -slideWidth*(slidePos)})
-	// 		if(callback) callback();
-	// 	}
+		// сдвиг слайдера
+		function moveToActiveSlide($slider, slideWidth, slidePos, callback){
+			var slidePos =  (slidePos >= 0) ? slidePos : 1;
+			$slider.transition({'left' : -slideWidth*(slidePos)})
+			if(callback && typeof callback == "function") callback();
+		}
 
-	// })();
+	})();
 
-	// Slider Start
 	// (function(){
 	// 	var slideWidth     = $('.slider-img').outerWidth(),
 	// 		slideActive    = $('.slider').find('.slider-active'),
@@ -128,20 +146,29 @@ $(document).ready(function(){
 
 	// 		initSlider($('.slider'), countSlides, slideActivePos, slideWidth);
 	// })();
-
 	
 	(function(){
 		var fotos = {},
-			arrEmptyBlocksIndex = [],
-			arrFotoObj = [],
-			arrFields  = [];
+			arrEmptyBlocksIndex  = [],
+			arrFotoObj 		  	 = [],
+			arrFields  		     = [],
+			selectActiveSlide    = 0;
+
+		$(document).on('change', '.wr-block-select_active-radio', function(){
+			selectActiveSlide = $(this).val();
+			console.log(selectActiveSlide);
+		});
 
 		$(document).on('click', '.wr-form_datas-btn', function(){
 			var arrUrls = [],
 			    str = $('.wr-form_datas-inp[name="datas"]').val(),
 			    arrUrls;
 
-			if(str.replace(/\s/g, '') === '') return false;
+			if(str.replace(/\s/g, '') === ''){
+				$('body').append(errEmptyArrObj($('#errorPopUp'), {title: 'Ошибка', text: 'Введите данные'}));
+				fadePopUp($('.errMes'));
+				return false;	
+			} 
 
 			arrUrls = generateArrUrls(str)
 			fotos = generateJSONArray(arrUrls);
@@ -151,27 +178,30 @@ $(document).ready(function(){
 			
 			fadeBlock($('.wr-form_datas'), 3, function(){
 				// Вывод шаблона
-				$('.wr-blocks-w').append(template(fotos));
-
+				$('.wr-blocks-w').append(template(fotos)).fadeIn(500);
 				$('#template').insertBefore('.wr-blocks-w'); // Чтоб индексы шли с нуля
 			});
 		
-
 			return false;
 		});
 
+		// Переход на экран 2
 		$(document).on('click', '.wr-block-delete', function(){
-			var fotoBlockNum = $(this).closest('.wr-block').index();
+			var parentBlock  = $(this).closest('.wr-block'),
+				activeSlide  = parentBlock.find('.wr-block-select_active-radio').val(),
+				fotoBlockNum = parentBlock.index();
+
 			$('.wr-block').eq(fotoBlockNum).html('');
 			fotos['fotos'][fotoBlockNum] = '';
 			arrEmptyBlocksIndex.push(fotoBlockNum);
 
-			console.log(fotoBlockNum);
+			if(selectActiveSlide == activeSlide) selectActiveSlide = 0;   
+			else if(selectActiveSlide > activeSlide) selectActiveSlide -=1;
 
-			console.log(fotos['fotos']);
 			return false;
 		});
 
+		// Переход на экран 3
 		$(document).on('click', '.wr-form_blocks-btn', function(){
 			deleteEmptyElements($('.wr-block'), arrEmptyBlocksIndex, fotos['fotos']);
 
@@ -179,27 +209,64 @@ $(document).ready(function(){
 			arrFields = generateArrNewFields($('.wr-block'), ".wr-block-comment-lb-inp");
 			
 			addNewFieldToArrayObj(arrFotoObj, arrFields, function(){
-				fadeBlock($('.wr-blocks-w'), 1)
+				if(!arrFotoObj.length){
+					$('body').append(errEmptyArrObj($('#errorPopUp'), {title: 'Ошибка', text: 'Нет слайдов'}));
+					fadePopUp($('.errMes'));
+					return false;
+				}
+
+				console.log(arrFotoObj);
+
+				$('.slider-w').append(renderSliderInsert(arrFotoObj));
+				$('.slider-img[data-item="'+ selectActiveSlide +'"]').addClass('slider-active');
+				
+				fadeBlock($('.wr-blocks-w'), 1, function(){
+					var slideWidth     = $('.slider-img').outerWidth(),
+						slideActive    = $('.slider').find('.slider-active'),
+						slideActivePos = slideActive.index(),
+						countSlides    = $('.slider').find('.slider-img').length-1;
+
+						initSlider($('.slider'), countSlides, slideActivePos, slideWidth);
+						setTimeout(function(){
+							$('.slider-main-w').css({
+								'position': 'relative',
+								'left': 'inherit'
+							});
+							$('.slider-w').css('opacity', 1);
+						}, 500)
+				})
 			});
-			console.log(arrFotoObj);
 			
 			return false;
 		});
 
-		/* Test Callback
-			var index = 11;
+		// Рендер внутренностей каждого слайда
+		function renderSliderInsert(arrObjects){
+			var source   = $('#sliderList').html();
+			var template = Handlebars.compile(source);
+			var wrapper  = {slide: arrObjects};
 
-			testCallback(index, function(index){
-				console.log(index);
-			})
+			return template(wrapper);
+		}
 
-			function testCallback(indexAr, callback){
-				var a = indexAr+1000;
-				console.log(a);
-				if(callback && typeof callback == "function") callback();(indexAr);
-			}
-		*/
+		// Всплывашка для ошибок
+		function fadePopUp($popup){
+			$popup.fadeIn(500, function(){
+				setTimeout(function(){
+					$popup.fadeOut(500, function(){
+						$popup.remove();
+					});
+				}, 2000);
+			});
+		}
 
+		// Рендер шаблона для ошибок
+		function errEmptyArrObj($patternError, errObj){
+			var template = Handlebars.compile($patternError.html());
+			return template(errObj);
+		}
+
+		// Добавляем свойство comment(комментарии) к каждой картинке в массиве
 		function addNewFieldToArrayObj(arrObjects, arrNewFields, callback){
 			for(var i=0; i<arrObjects.length; i++){
 				arrObjects[i].comment = arrNewFields[i];
@@ -264,6 +331,7 @@ $(document).ready(function(){
 
 			for(var i=0; i<strUrls.length; i++){
 				obj['fotos'][i] = {
+					slideNumber: i,
 					foto: strUrls[i]
 				}
 			}
@@ -301,10 +369,7 @@ $(document).ready(function(){
 						if(callback && typeof callback == "function") callback();
 					}); 
 					break;
-			}
-			
+			}	
 		}
-
 	})();
-
 });
