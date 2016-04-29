@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
 	<meta charset="UTF-8">
 	<title>Slider</title>
@@ -9,15 +9,27 @@
 <body>
 	<div class="wrapper">
 		<form action="#" class="wr-form_datas">
-			<input type="text" placeholder="Данные..." name="datas" class="wr-form_datas-inp"/>
+			<input type="text" placeholder="Данные..." name="datas" class="wr-form_datas-inp" value />
 			<button class="wr-form_datas-btn">Сохранить</button>
 		</form>
 
-		<div class="wr-download" style="display: none"></div>
+		<div class="wr-download" style="display: none"></div>	
+		<div class="wr-blocks-w"></div>
 
-		<div class="wr-blocks-w">
+		
+		<div class="slider-main-w">
+			<div class="slider-w">
+				<a href="#" data-slide="1" class="slider-arrow"></a>
+				<a href="#" data-slide="-1" class="slider-arrow"></a>
+			</div>
+		</div>
+	</div>
+
+
+	<script id="template" type="text/x-handlebars-template">
+		{{#each fotos}}
 			<div class="wr-block">
-				<img src="" alt="" class="wr-block-img"/>	
+				<img src="{{foto}}" alt="" class="wr-block-img"/>	
 				<form class="wr-block-comment">
 					<label class="wr-block-comment-lb">
 						<span class="wr-block-comment-lb-text">Комментарий:</span>
@@ -25,29 +37,44 @@
 					</label>
 				</form>
 				<a href="#" class="wr-block-delete">Удалить</a>
+				<label class="wr-block-select_active">
+					<input type="radio" name="activeSlide" value="{{slideNumber}}" class="wr-block-select_active-radio"/>
+					<span class="wr-block-select_active-text">Сделать слайд активным <span class="small-round"></span></span>
+				</label>
 			</div>
-		</div>
+		{{/each}}
+		<button class="wr-form_blocks-btn generate-slider">Сгенерировать слайдер</button>
+	</script>
 
-		<div class="slider-w">
-			<ul class="slider">
-				<li class="slider-img slider-active">
-					<div class="one"></div>
-				</li>
-				<li class="slider-img">
-					<div class="two"></div>
-				</li>
-				<li class="slider-img">
-					<div class="three"></div>
-				</li>
-				<li class="slider-img">
-					<div class="four"></div>
-				</li>
-			</ul>
-			<a href="#" data-slide="1" class="slider-arrow"></a>
-			<a href="#" data-slide="-1" class="slider-arrow"></a>
+	<script id="errorPopUp" type="text/x-handlebars-template">
+		<div class="errMes">
+			<h1 class="errMes-head">{{title}}</h1>
+			<p class="errMes-text">{{text}}</p>
 		</div>
-	</div>
+	</script>
+
+	<script id="sliderList" type="text/x-handlebars-template">
+		<ul class="slider">
+		    {{#each slide}}
+		        <li class="slider-img" data-item="{{slideNumber}}">
+		        	<img src="{{foto}}" alt=""/>
+					<div class="slider-img-comment">{{comment}}</div>
+		        </li>
+		    {{/each}}
+		</ul>
+	</script>
+
+	<script id="slider-navigation" type="text/-handlebars-template">
+		<div class="slider-navigation">
+			{{#each slide}}
+				<span class="slider-navigation-circle" data-item="{{slideNumber}}"></span>
+			{{/each}}
+		</div>
+	</script>
+
 	<script src="js/jquery.js"></script>
+	<script src="js/handlebars.js"></script>
+	<script src="js/anim.js"></script>
 	<script src="js/main.js"></script>
 </body>
 </html>
