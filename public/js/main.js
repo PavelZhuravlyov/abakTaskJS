@@ -1,5 +1,4 @@
 $(document).ready(function(){
-
 	//Slider
 	// (function(){
 		
@@ -170,6 +169,8 @@ $(document).ready(function(){
 				slideWidth  = slide.outerWidth();
 				positionActiveSlide = $(activeSlideClass).data('item');
 
+			console.log(positionActiveSlide);
+
 			if(!$slider) return false;
 
 			addSlideToEnd_Start($slider, slidesArr, activeSlideClass);
@@ -286,6 +287,7 @@ $(document).ready(function(){
 				activeIndexClass = $(activeSlideClass).data('item');
 
 				if(indexActiveSlide == countSlides-2) {
+					console.log("HERE");
 					$slider.css({
 						'marginLeft' : -slideWidth * 2
 					});
@@ -294,12 +296,11 @@ $(document).ready(function(){
 					});
 				}
 				else if(indexActiveSlide == 1){
-
 					$slider.css({
 						'marginLeft' : -slideWidth * (countSlides-3)
 					});
 					changeActiveSlide($slider, slideSelector, activeSlideClass, countSlides-3, function(){
-						genNavigatActive(9, '.slider-navigation-circle');
+						genNavigatActive(countSlides-5, '.slider-navigation-circle');
 					});
 				}
 				else genNavigatActive(activeIndexClass, '.slider-navigation-circle');
@@ -360,8 +361,17 @@ $(document).ready(function(){
 			fotos['fotos'][fotoBlockNum] = '';
 			arrEmptyBlocksIndex.push(fotoBlockNum);
 
-			if(selectActiveSlide == activeSlide) selectActiveSlide = 0;   
-			else if(selectActiveSlide > activeSlide) selectActiveSlide -=1;
+			console.log(activeSlide, selectActiveSlide);
+			if(activeSlide == 0){
+				selectActiveSlide = 1;
+			}
+			else{
+				if(selectActiveSlide == activeSlide) selectActiveSlide = 0;   
+				else if(selectActiveSlide > activeSlide) selectActiveSlide = selectActiveSlide-1;
+			}
+			// else selectActiveSlide = activeSlide-1;
+
+			console.log(selectActiveSlide);
 
 			return false;
 		});
@@ -393,7 +403,7 @@ $(document).ready(function(){
 						countSlides    = $('.slider').find('.slider-img').length-1;
 
 						initSlider($('.slider'), '.slider-arrow', '.slider-img', '.slider-active');
-
+						
 						setTimeout(function(){
 							$('.slider-main-w').css({
 								'position': 'relative',
