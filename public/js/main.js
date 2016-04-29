@@ -185,6 +185,7 @@ $(document).ready(function(){
 				if($slider.find(slideSelector).length <= 1) return false;
 
 				clearInterval(interval);
+				$('body').addClass('body-bg');
 
 				var dataMove         = $(this).data('slide'),
 					indexActiveSlide = $(activeSlideClass).index(),
@@ -302,7 +303,8 @@ $(document).ready(function(){
 					});
 				}
 				else genNavigatActive(activeIndexClass, '.slider-navigation-circle');
-			
+
+				$('body').removeClass('body-bg');			
 			});
 
 			if(callback && typeof callback == "function") callback();
