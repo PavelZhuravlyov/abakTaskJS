@@ -147,6 +147,8 @@ $(document).ready(function(){
 
 	(function(){
 		this.initSlider = function($slider, nav, slideSelector, activeSlideClass){
+			if(!$slider) return false;
+
 			if($slider.find(slideSelector).length <= 1){
 				var positionActiveSlide = $(activeSlideClass).data('item');
 
@@ -164,7 +166,6 @@ $(document).ready(function(){
 				positionActiveSlide = $(activeSlideClass).data('item'),
 				indexSlide          = slide.data('item'); 
 
-			if(!$slider) return false;
 
 			addSlideToEnd_Start($slider, slidesArr, activeSlideClass);
 			moveToActiveSlide($slider, activeSlideClass, slideWidth, 0, slideSelector);
@@ -400,7 +401,8 @@ $(document).ready(function(){
 						setTimeout(function(){
 							$('.slider-main-w').css({
 								'position': 'relative',
-								'left': 'inherit'
+								'left': 'inherit',
+								'top': 'inherit'
 							});
 							$('.slider-w').css('opacity', 1);
 						}, 500)
