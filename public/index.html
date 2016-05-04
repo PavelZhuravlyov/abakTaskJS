@@ -8,6 +8,7 @@
 </head>
 <body>
 	<div class="wrapper">
+
 		<form action="#" class="wr-form_datas">
 			<input type="text" placeholder="Данные..." name="datas" class="wr-form_datas-inp" value />
 			<button class="wr-form_datas-btn">Сохранить</button>
@@ -29,7 +30,13 @@
 	<script id="template" type="text/x-handlebars-template">
 		{{#each fotos}}
 			<div class="wr-block">
-				<img src="{{foto}}" alt="" class="wr-block-img"/>	
+				<div class="wr-block-img-w">
+					<div class="loading">
+						<span class="loading-big"></span>
+						<span class="loading-small"></span>
+					</div>
+					<img src="{{foto}}" alt="" class="wr-block-img"/>	
+				</div>
 				<form class="wr-block-comment">
 					<label class="wr-block-comment-lb">
 						<span class="wr-block-comment-lb-text">Комментарий:</span>

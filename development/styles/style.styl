@@ -1,3 +1,7 @@
+borderWidthLoading = 2px
+borderColorLoading = #8E8989
+
+
 *
 	margin 0
 	padding 0
@@ -63,7 +67,6 @@ ul
 		border 1px solid #4cae4c
 		border-radius 5px
 		padding 0 10px
-		// box-sizing border-box
 		
 		&:hover
 			background-color #449d44
@@ -74,7 +77,13 @@ ul
 	margin 50px auto 0
 	text-align center
 	display none
-	
+
+.wr-block-img-w
+	display inline-block
+	vertical-align middle
+	position relative
+	margin-right 20px
+
 .wr-block
 	margin-bottom 30px
 	text-align left
@@ -84,8 +93,9 @@ ul
 		vertical-align middle
 		width 100px
 		height 100px
-		margin-right 20px
 		border 1px solid #c2c2c2	
+		position relative 
+		z-index 2
 		
 	&-comment
 		display inline-block
@@ -377,8 +387,48 @@ ul
 	
 	&-text
 		font-size 18px
-	
 		
+.loading
+	position absolute
+	top 50%
+	left 50%
+	margin -50px 0 0 -50px
+	width 100px
+	height 100px
+
+	&-big
+		border-radius 50%
+		border borderWidthLoading solid borderColorLoading
+		border-top-color transparent
+		position absolute
+		top 50%
+		left 50%
+		width 20px
+		height 20px 
+		margin -11px 0 0 -11px
+		animation load-right 1.5s linear infinite  
+	
+	&-small
+		border-radius 50%
+		border borderWidthLoading solid borderColorLoading
+		border-bottom-color transparent
+		position absolute
+		top 50%
+		left 50%
+		width 10px
+		height 10px 
+		margin -6px 0 0 -6px
+		animation load-left 1.5s linear infinite 
+	
+
+@keyframes load-right
+	100%
+		transform rotate(360deg)
+		
+@keyframes load-left
+	100%
+		transform rotate(-360deg)
+
 @keyframes around-to
 	100%
 		transform rotate(360deg)
